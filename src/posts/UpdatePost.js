@@ -8,7 +8,11 @@ export default class UpdatePost extends Component {
         return (
             <div>
                 <Mutation mutation={UPDATE_POST}>
-                    {updatePost => (<PostForm onSubmit={updatePost} post={post}/>)}
+                    {(updatePost, result) => {
+                        const onSuccess=() => result.client.writeData({ data: { isEditMode: false } })
+                        return (<PostForm onSubmit={updatePost} post={post} onSuccess={onSuccess}/>)
+                    }
+                    }
                 </Mutation>
             </div>
         )

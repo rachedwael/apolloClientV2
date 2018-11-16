@@ -11,10 +11,12 @@ export default class PostForm extends Component {
     }
     static propTypes={
         onSubmit:propTypes.func.isRequired,
+        onSuccess:propTypes.func.isRequired,
         post:propTypes.object
     }
     static defaultProps = {
-        post:{}
+        post:{},
+        onSuccess:()=>null
     }
     handleInput = e => {
         const formData = {};
@@ -23,7 +25,7 @@ export default class PostForm extends Component {
     }
     render() {
         const { title, body, id } = this.state
-        const {onSubmit} = this.props
+        const {onSubmit, onSuccess} = this.props
         return (
             <div>
                 <form onSubmit={(e) => {
@@ -35,6 +37,7 @@ export default class PostForm extends Component {
                                     id
                                 }
                             }).then(() => {
+                                onSuccess();
                                 this.setState({
                                     title: '',
                                     body: ''

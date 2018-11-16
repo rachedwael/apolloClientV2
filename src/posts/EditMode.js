@@ -3,7 +3,6 @@ import { ApolloConsumer } from 'react-apollo'
 export default class EditMode extends Component {
     render() {
         const {isEditMode}=this.props;
-        console.log('is', isEditMode)
         return (
             <div>
                 <ApolloConsumer>
