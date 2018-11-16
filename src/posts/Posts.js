@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
+import POSTS_QUERY from './Post.graphql'
 export default class Posts extends Component {
     render() {
-        const POSTS_QUERY = gql`
-    query allPosts($skip:Int) {
-      posts(orderBy:createdAt_DESC, first:5, skip:$skip) {
-        id
-        title
-        body
-      }
-    }
-    `;
+    // const POSTS_QUERY = gql`
+    
+    // `;
         return (
             <div>
                 <Link className="button" to={"/posts/new"} >new Post</Link>
