@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PostForm from './PostForm'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
+import    {UPDATE_POST}   from './../graphql/mutations.js'
+
 export default class UpdatePost extends Component {
     render() {
         const {post}=this.props
@@ -19,21 +21,3 @@ export default class UpdatePost extends Component {
     }
 }
 
-const UPDATE_POST = gql`
-mutation update($id:ID!,$title:String!, $body:String!) {
-    updatePost(
-      where: {
-        id: $id
-      }, 
-      data: {
-        title: $title,
-        status:PUBLISHED,
-        body: $body  
-      }
-    ){
-      id
-      title
-      status
-    }
-  }
-`;

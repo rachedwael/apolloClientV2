@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-// import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
-import POSTS_QUERY from './Post.graphql'
+import  { POSTS_QUERY }  from './../graphql/queries'
 export default class Posts extends Component {
     render() {
-    // const POSTS_QUERY = gql`
-    
-    // `;
         return (
             <div>
                 <Link className="button" to={"/posts/new"} >new Post</Link>
@@ -26,6 +22,7 @@ export default class Posts extends Component {
                                                         <Link key={post.id} to={`post/${post.id}`}>
                                                             {post.title}
                                                         </Link>
+                                                        <button className="button">X</button>
                                                     </li>
                                                 </div>
                                             )

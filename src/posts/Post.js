@@ -1,19 +1,11 @@
 import React, { Component } from 'react'
 import gql from 'graphql-tag'
-import { Query, Mutation } from '../../node_modules/react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import UpdatePost from './UpdatePost';
 import EditMode from './EditMode';
-const POST_QUERY = gql`
-query post($id: ID!) {
-  post(where:{id:$id}) {
-    id
-    title
-    body
-    check
-  }
-  isEditMode @client
-}
-`;
+import  { POST_QUERY }  from './../graphql/queries'
+import    {UPDATE_POST_CHECK }  from './../graphql/mutations'
+
 export default class Post extends Component {
   render() {
     const { match } = this.props
@@ -92,20 +84,3 @@ export default class Post extends Component {
   }
 }
 
-const UPDATE_POST_CHECK = gql`
-mutation updatePost($id:ID!,$check:Boolean) {
-    updatePost(
-      where: {
-        id: $id
-      }, 
-      data: {
-        check: $check
-      }
-    ){
-      id
-      title
-      status
-      check
-    }
-  }
-`;

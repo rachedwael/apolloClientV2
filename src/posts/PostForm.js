@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import propTypes from 'proptypes';
+import  { POSTS_QUERY }  from './../graphql/queries'
 export default class PostForm extends Component {
     constructor(props) {
         super(props)
@@ -35,7 +36,8 @@ export default class PostForm extends Component {
                                     title,
                                     body,
                                     id
-                                }
+                                },
+                             refetchQueries: [{ query: POSTS_QUERY }],
                             }).then(() => {
                                 onSuccess();
                                 this.setState({
