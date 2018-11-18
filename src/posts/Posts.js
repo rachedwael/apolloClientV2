@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import  { POSTS_QUERY }  from './../graphql/queries'
+import { POSTS_QUERY } from './../graphql/queries'
+import { DELETE_POST } from './../graphql/mutations'
+
 export default class Posts extends Component {
     render() {
         return (
@@ -22,20 +24,35 @@ export default class Posts extends Component {
                                                         <Link key={post.id} to={`post/${post.id}`}>
                                                             {post.title}
                                                         </Link>
-                                                        <button className="button">X</button>
+                                                        <Mutation
+                                                            mutation={DELETE_POST}
+                                                            variables={{
+                                                                id: post.id,
+                                                                // refetchQueries: [{ query: POSTS_QUERY }],
+                                                            }}
+                                                        >
+                                                            {deletePost => (
+                                                                <button
+                                                                    className="button"
+                                                                    onClick={deletePost}>
+                                                                    X
+                     </button>
+                                                            )
+                                                            }
+                                                        </Mutation>
                                                     </li>
                                                 </div>
                                             )
                                         })
                                     }
-                                     <button onClick={()=>fetchMore({
-                                        variables:{
-                                            skip:posts.length
+                                    <button onClick={() => fetchMore({
+                                        variables: {
+                                            skip: posts.length
                                         },
-                                        updateQuery:(prev,{fetchMoreResult})=>{
-                                            if(!fetchMoreResult) return prev;
-                                            return Object.assign({},prev,{
-                                                posts:[...prev.posts,...fetchMoreResult.posts]
+                                        updateQuery: (prev, { fetchMoreResult }) => {
+                                            if (!fetchMoreResult) return prev;
+                                            return Object.assign({}, prev, {
+                                                posts: [...prev.posts, ...fetchMoreResult.posts]
                                             })
                                         }
                                     })}>Lead More</button>
